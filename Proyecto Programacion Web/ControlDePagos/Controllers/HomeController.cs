@@ -13,6 +13,11 @@ namespace ControlDePagos.Controllers
             _logger = logger;
         }
 
+        public IActionResult Login()
+        {
+            return View("Login");
+        }
+
         public IActionResult Index()
         {
             return View();
