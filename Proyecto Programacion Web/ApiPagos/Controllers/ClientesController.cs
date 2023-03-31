@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ApiPagos.EntityModels;
+using LibreriaPagos.Models;
 
 namespace ApiPagos.Controllers
 {
@@ -28,8 +28,7 @@ namespace ApiPagos.Controllers
           {
               return NotFound();
           }
-            var clientes = await _context.Clientes.ToListAsync();
-            return clientes;
+            return await _context.Clientes.ToListAsync();
         }
 
         // GET: api/Clientes/5
@@ -78,7 +77,7 @@ namespace ApiPagos.Controllers
                 }
             }
 
-            return NoContent();
+            return StatusCode(200);
         }
 
         // POST: api/Clientes
@@ -113,7 +112,7 @@ namespace ApiPagos.Controllers
             _context.Clientes.Remove(cliente);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return StatusCode(200);
         }
 
         private bool ClienteExists(int id)

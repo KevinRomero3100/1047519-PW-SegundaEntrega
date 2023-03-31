@@ -1,4 +1,4 @@
-using ApiPagos.EntityModels;
+using LibreriaPagos.Models;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
