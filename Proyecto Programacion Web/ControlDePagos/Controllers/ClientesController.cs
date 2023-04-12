@@ -20,17 +20,13 @@ namespace ControlDePagos.Controllers
         //}
 
         HttpClient clienthttp;
+        public string url { get;  set; } = "https://localhost:7010/";
+
         public ClientesController()
         {
-            //_context = context;
             clienthttp = new HttpClient();
         }
 
-
-
-
-        
-        string url = "https://localhost:7010/";
         // GET: Clientes
         public async Task<IActionResult> Index()
         {
@@ -166,7 +162,7 @@ namespace ControlDePagos.Controllers
 
         //private bool ClienteExists(int id)
         //{
-        //  return (_context.Clientes?.Any(e => e.IdCliente == id)).GetValueOrDefault();
+        //    return (_context.Clientes?.Any(e => e.IdCliente == id)).GetValueOrDefault();
         //}
     }
 }

@@ -184,7 +184,6 @@ public partial class PaycontroldbContext : DbContext
 
             entity.HasOne(d => d.RolIdRolNavigation).WithMany(p => p.Empleados)
                 .HasForeignKey(d => d.RolIdRol)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_empleado_rol1");
         });
 

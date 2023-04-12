@@ -25,7 +25,7 @@ public partial class Empleado
 
     public sbyte Estado { get; set; }
 
-    public int RolIdRol { get; set; }
+    public int? RolIdRol { get; set; }
 
     public virtual ICollection<DireccionEmpleado> DireccionEmpleados { get; } = new List<DireccionEmpleado>();
 
@@ -33,7 +33,7 @@ public partial class Empleado
 
     public virtual ICollection<Factura> Facturas { get; } = new List<Factura>();
 
-    public virtual Rol RolIdRolNavigation { get; set; } = null!;
+    public virtual Rol? RolIdRolNavigation { get; set; }
 
     public virtual ICollection<Usuario> Usuarios { get; } = new List<Usuario>();
 }
