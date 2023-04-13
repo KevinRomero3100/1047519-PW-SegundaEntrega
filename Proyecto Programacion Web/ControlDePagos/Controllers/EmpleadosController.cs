@@ -24,10 +24,13 @@ namespace ControlDePagos.Controllers
         public async Task<IActionResult> Index()
         {
             var list = await clienthttp.GetFromJsonAsync<IEnumerable<Empleado>>(url + "api/Empleados");
-            foreach (var item in list)
+            /*foreach (var item in list)
             {
                 item.RolIdRolNavigation = await clienthttp.GetFromJsonAsync<Rol>(url + "api/Rols/" + item.RolIdRol.ToString());
-            }
+            }*/
+            var rols = await clienthttp.GetFromJsonAsync<IEnumerable<Empleado>>(url + "api/Rols");
+
+            list.Select(p => p.RolIdRolNavigation.Equals(rols.FirstOrDefault(x => x.RolIdRol.Equals(p.RolIdRol))));
             return View(list);
         }
 
