@@ -264,7 +264,7 @@ public partial class PaycontroldbContext : DbContext
 
         modelBuilder.Entity<Usuario>(entity =>
         {
-            entity.HasKey(e => new { e.IdUsuario, e.EmpleadoIdEmpleado }).HasName("PRIMARY");
+            entity.HasKey(e => e.IdUsuario).HasName("PRIMARY");
 
             entity.ToTable("usuario");
 
@@ -277,7 +277,6 @@ public partial class PaycontroldbContext : DbContext
 
             entity.HasOne(d => d.EmpleadoIdEmpleadoNavigation).WithMany(p => p.Usuarios)
                 .HasForeignKey(d => d.EmpleadoIdEmpleado)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_usuario_empleado1");
         });
 

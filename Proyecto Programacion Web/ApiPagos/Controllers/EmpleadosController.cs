@@ -52,13 +52,8 @@ namespace ApiPagos.Controllers
         // PUT: api/Empleados/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutEmpleado(int id, Empleado empleado)
+        public async Task<IActionResult> PutEmpleado(Empleado empleado)
         {
-            if (id != empleado.IdEmpleado)
-            {
-                return BadRequest();
-            }
-
             _context.Entry(empleado).State = EntityState.Modified;
 
             try
@@ -67,7 +62,7 @@ namespace ApiPagos.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!EmpleadoExists(id))
+                if (!EmpleadoExists(empleado.IdEmpleado))
                 {
                     return NotFound();
                 }

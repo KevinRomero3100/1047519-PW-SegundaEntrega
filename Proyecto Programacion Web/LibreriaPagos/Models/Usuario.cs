@@ -11,7 +11,7 @@ public partial class Usuario
 
     public string Pasword { get; set; } = null!;
 
-    public int EmpleadoIdEmpleado { get; set; }
+    public int? EmpleadoIdEmpleado { get; set; }
 
-    public virtual Empleado EmpleadoIdEmpleadoNavigation { get; set; } = null!;
+    public virtual Empleado? EmpleadoIdEmpleadoNavigation { get; set; }
 }

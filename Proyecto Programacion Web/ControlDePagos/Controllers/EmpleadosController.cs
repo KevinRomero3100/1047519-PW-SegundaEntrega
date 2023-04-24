@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LibreriaPagos.Models;
+using ControlDePagos.Models;
+using Org.BouncyCastle.Utilities.Collections;
+using Azure;
 
 namespace ControlDePagos.Controllers
 {
@@ -13,7 +16,7 @@ namespace ControlDePagos.Controllers
     {
 
         HttpClient clienthttp;
-        public string url { get; set; } = "https://localhost:7010/";
+        public string url { get; set; } = new URL().urlApi;
 
         public EmpleadosController()
         {
@@ -23,15 +26,10 @@ namespace ControlDePagos.Controllers
         // GET: Empleados
         public async Task<IActionResult> Index()
         {
-            var list = await clienthttp.GetFromJsonAsync<IEnumerable<Empleado>>(url + "api/Empleados");
-            /*foreach (var item in list)
-            {
-                item.RolIdRolNavigation = await clienthttp.GetFromJsonAsync<Rol>(url + "api/Rols/" + item.RolIdRol.ToString());
-            }*/
-            var rols = await clienthttp.GetFromJsonAsync<IEnumerable<Empleado>>(url + "api/Rols");
-
-            list.Select(p => p.RolIdRolNavigation.Equals(rols.FirstOrDefault(x => x.RolIdRol.Equals(p.RolIdRol))));
-            return View(list);
+            var empleados = await clienthttp.GetFromJsonAsync<IEnumerable<Empleado>>(url + "api/Empleados");
+            var rols = await clienthttp.GetFromJsonAsync<IEnumerable<Rol>>(url + "api/Rols");
+            empleados.ToList().ForEach(x => x.RolIdRolNavigation = rols.FirstOrDefault(y => y.IdRol.Equals(x.RolIdRol)));
+            return View(empleados);
         }
 
         // GET: Empleados/Details/5
@@ -76,95 +74,92 @@ namespace ControlDePagos.Controllers
         }
 
         //// GET: Empleados/Edit/5
-        //public async Task<IActionResult> Edit(int? id)
-        //{
-        //    if (id == null || _context.Empleados == null)
-        //    {
-        //        return NotFound();
-        //    }
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        //    var empleado = await _context.Empleados.FindAsync(id);
-        //    if (empleado == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    ViewData["RolIdRol"] = new SelectList(_context.Rols, "IdRol", "Type", empleado.RolIdRol);
-        //    return View(empleado);
-        //}
+            var empleado = await clienthttp.GetFromJsonAsync<Empleado>(url + "api/Empleados/" + id.ToString());
+            if (empleado == null)
+            {
+                return NotFound();
+            }
+            var rols = await clienthttp.GetFromJsonAsync<IEnumerable<Rol>>(url + "api/Rols");
+            ViewData["RolIdRol"] = new SelectList(rols, "IdRol", "Type", empleado.RolIdRol);
+            return View(empleado);
+        }
 
         //// POST: Empleados/Edit/5
         //// To protect from overposting attacks, enable the specific properties you want to bind to.
         //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [Bind("IdEmpleado,CodigoPersonal,Dpi,PrimerNombre,SegundoNombre,PrimerApellido,SegundoApellido,Telefono,Email,Estado,RolIdRol")] Empleado empleado)
-        //{
-        //    if (id != empleado.IdEmpleado)
-        //    {
-        //        return NotFound();
-        //    }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("IdEmpleado,CodigoPersonal,Dpi,PrimerNombre,SegundoNombre,PrimerApellido,SegundoApellido,Telefono,Email,Estado,RolIdRol")] Empleado empleado)
+        {
+            HttpResponseMessage response = new HttpResponseMessage();
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    response = await clienthttp.PutAsJsonAsync<Empleado>(url + "api/Empleados/" + id, empleado);
+                    
+                }
+                catch (DbUpdateConcurrencyException)
+                {
 
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            _context.Update(empleado);
-        //            await _context.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!EmpleadoExists(empleado.IdEmpleado))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    ViewData["RolIdRol"] = new SelectList(_context.Rols, "IdRol", "Type", empleado.RolIdRol);
-        //    return View(empleado);
-        //}
+                    if (response.StatusCode.ToString() == "404")
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            var rols = await clienthttp.GetFromJsonAsync<IEnumerable<Rol>>(url + "api/Rols");
+            ViewData["RolIdRol"] = new SelectList(rols, "IdRol", "Type");
+            return View(empleado);
+        }
 
-        //// GET: Empleados/Delete/5
-        //public async Task<IActionResult> Delete(int? id)
-        //{
-        //    if (id == null || _context.Empleados == null)
-        //    {
-        //        return NotFound();
-        //    }
+        // GET: Empleados/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        //    var empleado = await _context.Empleados
-        //        .Include(e => e.RolIdRolNavigation)
-        //        .FirstOrDefaultAsync(m => m.IdEmpleado == id);
-        //    if (empleado == null)
-        //    {
-        //        return NotFound();
-        //    }
+            var empleado = await clienthttp.GetFromJsonAsync<Empleado>(url + "api/Empleados/" + id.ToString());
+            if (empleado == null)
+            {
+                return NotFound();
+            }
 
-        //    return View(empleado);
-        //}
+            return View(empleado);
+        }
 
-        //// POST: Empleados/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(int id)
-        //{
-        //    if (_context.Empleados == null)
-        //    {
-        //        return Problem("Entity set 'PaycontroldbContext.Empleados'  is null.");
-        //    }
-        //    var empleado = await _context.Empleados.FindAsync(id);
-        //    if (empleado != null)
-        //    {
-        //        _context.Empleados.Remove(empleado);
-        //    }
+        // POST: Empleados/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed([Bind("IdEmpleado,CodigoPersonal,Dpi,PrimerNombre,SegundoNombre,PrimerApellido,SegundoApellido,Telefono,Email,Estado,RolIdRol")] Empleado empl)
+        {
+            var empleados = await clienthttp.GetFromJsonAsync<IEnumerable<Empleado>>(url + "api/Empleados");
+            if (empleados == null)
+            {
+                return Problem("Entity set 'PaycontroldbContext.Clientes'  is null.");
+            }
+            var empleado = empleados.FirstOrDefault(x => x.IdEmpleado == empl.IdEmpleado);
+            if (empleado != null)
+            {
 
-        //    await _context.SaveChangesAsync();
-        //    return RedirectToAction(nameof(Index));
-        //}
+                var Response = await clienthttp.DeleteAsync(url + "api/Empleados/" + empleado.IdEmpleado.ToString());
+            }
+            return RedirectToAction(nameof(Index));
+        }
 
         //private bool EmpleadoExists(int id)
         //{

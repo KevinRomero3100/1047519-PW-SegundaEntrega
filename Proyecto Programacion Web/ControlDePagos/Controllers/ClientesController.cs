@@ -6,21 +6,18 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LibreriaPagos.Models;
+using ControlDePagos.Models;
 using Google.Protobuf.WellKnownTypes;
 
 namespace ControlDePagos.Controllers
 {
     public class ClientesController : Controller
     {
-        //private readonly PaycontroldbContext _context;
 
-        //public ClientesController(PaycontroldbContext context)
-        //{
-        //    _context = context;
-        //}
+
 
         HttpClient clienthttp;
-        public string url { get;  set; } = "https://localhost:7010/";
+        public string url { get; set; } = new URL().urlApi;
 
         public ClientesController()
         {
