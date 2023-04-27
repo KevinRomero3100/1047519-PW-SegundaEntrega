@@ -1,4 +1,4 @@
-﻿@model LibreriaPagos.Models.Cliente
+﻿@model LibreriaPagos.Models.ClienteDireeccion
 
 @{
     ViewData["Title"] = "Edit";
@@ -12,51 +12,68 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="IdCliente" />
+            <input type="hidden" asp-for="ClienteIdClienteNavigation.IdCliente" />
+            <input type="hidden" asp-for="DireccionIdDireccionNavigation.IdDireccion" />
+            <input type="hidden" asp-for="IdClienteDireeccion" />
             <div class="form-group">
-                <label asp-for="CodigoPersonal" class="control-label"></label>
-                <input asp-for="CodigoPersonal" class="form-control" />
-                <span asp-validation-for="CodigoPersonal" class="text-danger"></span>
+                <label asp-for="ClienteIdClienteNavigation.CodigoPersonal" class="control-label"></label>
+                <input asp-for="ClienteIdClienteNavigation.CodigoPersonal" class="form-control" />
+                <span asp-validation-for="ClienteIdClienteNavigation.CodigoPersonal" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Dpi" class="control-label"></label>
-                <input asp-for="Dpi" class="form-control" />
-                <span asp-validation-for="Dpi" class="text-danger"></span>
+                <label asp-for="ClienteIdClienteNavigation.Dpi" class="control-label"></label>
+                <input asp-for="ClienteIdClienteNavigation.Dpi" class="form-control" />
+                <span asp-validation-for="ClienteIdClienteNavigation.Dpi" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PrimerNombre" class="control-label"></label>
-                <input asp-for="PrimerNombre" class="form-control" />
-                <span asp-validation-for="PrimerNombre" class="text-danger"></span>
+                <label asp-for="ClienteIdClienteNavigation.PrimerNombre" class="control-label"></label>
+                <input asp-for="ClienteIdClienteNavigation.PrimerNombre" class="form-control" />
+                <span asp-validation-for="ClienteIdClienteNavigation.PrimerNombre" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SegundoNombre" class="control-label"></label>
-                <input asp-for="SegundoNombre" class="form-control" />
-                <span asp-validation-for="SegundoNombre" class="text-danger"></span>
+                <label asp-for="ClienteIdClienteNavigation.SegundoNombre" class="control-label"></label>
+                <input asp-for="ClienteIdClienteNavigation.SegundoNombre" class="form-control" />
+                <span asp-validation-for="ClienteIdClienteNavigation.SegundoNombre" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PrimerApellido" class="control-label"></label>
-                <input asp-for="PrimerApellido" class="form-control" />
-                <span asp-validation-for="PrimerApellido" class="text-danger"></span>
+                <label asp-for="ClienteIdClienteNavigation.PrimerApellido" class="control-label"></label>
+                <input asp-for="ClienteIdClienteNavigation.PrimerApellido" class="form-control" />
+                <span asp-validation-for="ClienteIdClienteNavigation.PrimerApellido" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SegundoApellido" class="control-label"></label>
-                <input asp-for="SegundoApellido" class="form-control" />
-                <span asp-validation-for="SegundoApellido" class="text-danger"></span>
+                <label asp-for="ClienteIdClienteNavigation.SegundoApellido" class="control-label"></label>
+                <input asp-for="ClienteIdClienteNavigation.SegundoApellido" class="form-control" />
+                <span asp-validation-for="ClienteIdClienteNavigation.SegundoApellido" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Telefono" class="control-label"></label>
-                <input asp-for="Telefono" class="form-control" />
-                <span asp-validation-for="Telefono" class="text-danger"></span>
+                <label asp-for="ClienteIdClienteNavigation.Telefono" class="control-label"></label>
+                <input asp-for="ClienteIdClienteNavigation.Telefono" class="form-control" />
+                <span asp-validation-for="ClienteIdClienteNavigation.Telefono" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+                <label asp-for="ClienteIdClienteNavigation.Email" class="control-label"></label>
+                <input asp-for="ClienteIdClienteNavigation.Email" class="form-control" />
+                <span asp-validation-for="ClienteIdClienteNavigation.Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Estado" class="control-label"></label>
-                <input asp-for="Estado" class="form-control" />
-                <span asp-validation-for="Estado" class="text-danger"></span>
+                <label asp-for="ClienteIdClienteNavigation.Estado" class="control-label"></label>
+                <input asp-for="ClienteIdClienteNavigation.Estado" class="form-control" />
+                <span asp-validation-for="ClienteIdClienteNavigation.Estado" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DireccionIdDireccionNavigation.Descripcion" class="control-label"></label>
+                <input asp-for="DireccionIdDireccionNavigation.Descripcion" class="form-control" />
+                <span asp-validation-for="DireccionIdDireccionNavigation.Descripcion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DireccionIdDireccionNavigation.Referencia" class="control-label"></label>
+                <input asp-for="DireccionIdDireccionNavigation.Referencia" class="form-control" />
+                <span asp-validation-for="DireccionIdDireccionNavigation.Referencia" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ColoniaIdColoniaNavigation.Nombre" class="control-label"></label>
+                <select asp-for="ColoniaIdColonia" class="form-control" asp-items="ViewBag.Colonias"></select>
+                <span asp-validation-for="ColoniaIdColoniaNavigation" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

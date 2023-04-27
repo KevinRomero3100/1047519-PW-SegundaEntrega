@@ -58,6 +58,18 @@
                 <span asp-validation-for="Estado" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp="_descripccion" class="control-label">Direccion</label>
+                <input name="_descripccion" type="text" id="Desc" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label name="_referencia" class="control-label">Referencia</label>
+                <input name="_referencia" type="text" id="Refe" class="form-control"  />
+            </div>
+            <div class="form-group">
+                <label name="_colonia" class="control-label">Colonia</label>
+                <select name="_colonia" class="form-control" asp-items="ViewBag.Colonias" id="idCol"></select>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>

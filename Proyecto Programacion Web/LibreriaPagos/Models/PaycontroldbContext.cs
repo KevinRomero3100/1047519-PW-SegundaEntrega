@@ -78,17 +78,14 @@ public partial class PaycontroldbContext : DbContext
 
             entity.HasOne(d => d.ClienteIdClienteNavigation).WithMany(p => p.ClienteDireeccions)
                 .HasForeignKey(d => d.ClienteIdCliente)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_cliente-direeccion_cliente1");
 
             entity.HasOne(d => d.ColoniaIdColoniaNavigation).WithMany(p => p.ClienteDireeccions)
                 .HasForeignKey(d => d.ColoniaIdColonia)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_cliente-direeccion_colonia1");
 
             entity.HasOne(d => d.DireccionIdDireccionNavigation).WithMany(p => p.ClienteDireeccions)
                 .HasForeignKey(d => d.DireccionIdDireccion)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_cliente-direeccion_direccion1");
         });
 
