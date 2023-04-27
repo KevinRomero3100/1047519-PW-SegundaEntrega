@@ -1,0 +1,90 @@
+﻿@model LibreriaPagos.Models.ClienteDireeccion
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Cliente</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayName("Codigo Personal")
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ClienteIdClienteNavigation.CodigoPersonal)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayName("Dpi")
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ClienteIdClienteNavigation.Dpi)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayName("Primer Nombre")
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ClienteIdClienteNavigation.PrimerNombre)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayName("Segundo Nombre")
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ClienteIdClienteNavigation.SegundoNombre)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayName("Primer Apellido")
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ClienteIdClienteNavigation.PrimerApellido)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayName("Segundo Apellido")
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ClienteIdClienteNavigation.SegundoApellido)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayName("Telefono")
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ClienteIdClienteNavigation.Telefono)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayName("Email")
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ClienteIdClienteNavigation.Email)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayName("Estado")
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ClienteIdClienteNavigation.Estado)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayName("Colonia")
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ColoniaIdColoniaNavigation.Nombre)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayName("Direccion")
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DireccionIdDireccionNavigation.Descripcion)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayName("Referencia")
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DireccionIdDireccionNavigation.Referencia)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.IdClienteDireeccion">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

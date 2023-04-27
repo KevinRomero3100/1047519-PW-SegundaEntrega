@@ -11,55 +11,55 @@ namespace ApiPagos.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClientesController : ControllerBase
+    public class RolsController : ControllerBase
     {
         private readonly PaycontroldbContext _context;
 
-        public ClientesController(PaycontroldbContext context)
+        public RolsController(PaycontroldbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Clientes
+        // GET: api/Rols
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Cliente>>> GetClientes()
+        public async Task<ActionResult<IEnumerable<Rol>>> GetRols()
         {
-          if (_context.Clientes == null)
+          if (_context.Rols == null)
           {
               return NotFound();
           }
-            return await _context.Clientes.ToListAsync();
+            return await _context.Rols.ToListAsync();
         }
 
-        // GET: api/Clientes/5
+        // GET: api/Rols/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Cliente>> GetCliente(int id)
+        public async Task<ActionResult<Rol>> GetRol(int id)
         {
-          if (_context.Clientes == null)
+          if (_context.Rols == null)
           {
               return NotFound();
           }
-            var cliente = await _context.Clientes.FindAsync(id);
+            var rol = await _context.Rols.FindAsync(id);
 
-            if (cliente == null)
+            if (rol == null)
             {
                 return NotFound();
             }
 
-            return cliente;
+            return rol;
         }
 
-        // PUT: api/Clientes/5
+        // PUT: api/Rols/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCliente(int id, Cliente cliente)
+        public async Task<IActionResult> PutRol(int id, Rol rol)
         {
-            if (id != cliente.IdCliente)
+            if (id != rol.IdRol)
             {
                 return BadRequest();
             }
 
-            _context.Entry(cliente).State = EntityState.Modified;
+            _context.Entry(rol).State = EntityState.Modified;
 
             try
             {
@@ -67,7 +67,7 @@ namespace ApiPagos.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ClienteExists(id))
+                if (!RolExists(id))
                 {
                     return NotFound();
                 }
@@ -77,47 +77,47 @@ namespace ApiPagos.Controllers
                 }
             }
 
-            return StatusCode(200);
+            return NoContent();
         }
 
-        // POST: api/Clientes
+        // POST: api/Rols
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Cliente>> PostCliente(Cliente cliente)
+        public async Task<ActionResult<Rol>> PostRol(Rol rol)
         {
-          if (_context.Clientes == null)
+          if (_context.Rols == null)
           {
-              return Problem("Entity set 'PaycontroldbContext.Clientes'  is null.");
+              return Problem("Entity set 'PaycontroldbContext.Rols'  is null.");
           }
-            _context.Clientes.Add(cliente);
+            _context.Rols.Add(rol);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCliente", new { id = cliente.IdCliente }, cliente);
+            return CreatedAtAction("GetRol", new { id = rol.IdRol }, rol);
         }
 
-        // DELETE: api/Clientes/5
+        // DELETE: api/Rols/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCliente(int id)
+        public async Task<IActionResult> DeleteRol(int id)
         {
-            if (_context.Clientes == null)
+            if (_context.Rols == null)
             {
                 return NotFound();
             }
-            var cliente = await _context.Clientes.FindAsync(id);
-            if (cliente == null)
+            var rol = await _context.Rols.FindAsync(id);
+            if (rol == null)
             {
                 return NotFound();
             }
 
-            _context.Clientes.Remove(cliente);
+            _context.Rols.Remove(rol);
             await _context.SaveChangesAsync();
 
-            return StatusCode(200);
+            return NoContent();
         }
 
-        private bool ClienteExists(int id)
+        private bool RolExists(int id)
         {
-            return (_context.Clientes?.Any(e => e.IdCliente == id)).GetValueOrDefault();
+            return (_context.Rols?.Any(e => e.IdRol == id)).GetValueOrDefault();
         }
     }
 }
